@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="zh-TW" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="${title != null ? title + ' - CUST' : 'China University of Science and Technology'}">CUST</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <h1><a th:href="@{/}">中華科技大學 (CUST)</a></h1>
+        <nav>
+            <ul>
+                <li><a th:href="@{/}">首頁</a></li>
+                <li><a th:href="@{/about}">關於中華</a></li>
+                <li><a th:href="@{/news}">新聞集錦</a></li>
+                <li><a th:href="@{/email/inbox}" sec:authorize="isAuthenticated()">校園信箱</a></li>
+                <li sec:authorize="!isAuthenticated()"><a th:href="@{/login}" class="btn btn-primary">登入系統</a></li>
+                <li sec:authorize="isAuthenticated()">
+                    <form th:action="@{/logout}" method="post" style="display:inline;">
+                        <button type="submit" class="btn" style="background:transparent; color:var(--text-muted); border:1px solid var(--border);">登出</button>
+                    </form>
+                </li>
+            </ul>
+        </nav>
+    </header>
+
+    <main th:insert="~{::content}">
+        <!-- Page specific content will go here -->
+    </main>
+
+    <footer>
+        <p>&copy; 2026 China University of Science and Technology. All rights reserved.</p>
+        <p>115311 台北市南港區研究院路三段245號 | No.245, Academia Rd. Sec. 3, Nangang Dist., Taipei City 115311, Taiwan (R.O.C.)</p>
+    </footer>
+</body>
+</html>

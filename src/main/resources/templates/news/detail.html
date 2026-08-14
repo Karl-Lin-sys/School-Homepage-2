@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html th:replace="~{layout/base :: html(content=~{::main}, title=${news != null ? news.title : '新聞內容'})}">
+<main>
+    <div style="margin-bottom: 2rem;">
+        <a th:href="@{/news}" style="color: var(--text-muted); text-decoration: none;">&larr; 返回新聞列表</a>
+    </div>
+
+    <div th:if="${news == null}" class="card" style="text-align: center; padding: 3rem;">
+        <h2 style="color: hsl(0, 70%, 40%);">找不到該新聞內容</h2>
+    </div>
+
+    <div th:if="${news != null}" class="card" style="padding: 3rem;">
+        <h1 style="margin-bottom: 1rem; font-size: 2rem;" th:text="${news.title}">Title</h1>
+        <div style="display: flex; gap: 1rem; color: var(--text-muted); font-size: 0.9rem; margin-bottom: 2rem; padding-bottom: 1rem; border-bottom: 1px solid var(--border);">
+            <span>發布日期： <span th:text="${#temporals.format(news.publishDate, 'yyyy-MM-dd HH:mm')}">Date</span></span>
+            <span>分類： <span th:text="${news.category}">Category</span></span>
+            <span>發布單位： <span th:text="${news.author.username}">Author</span></span>
+        </div>
+        
+        <div style="font-size: 1.1rem; line-height: 1.8; white-space: pre-wrap;" th:text="${news.content}">
+            Content goes here.
+        </div>
+    </div>
+</main>
+</html>

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html th:replace="~{layout/base :: html(content=~{::main}, title='登入')}">
+<main>
+    <div style="max-width: 400px; margin: 4rem auto;">
+        <div class="card">
+            <h2 style="text-align:center; margin-bottom: 1.5rem;">系統登入</h2>
+            <div th:if="${param.error}" style="padding: 1rem; background: hsl(0, 80%, 95%); color: hsl(0, 70%, 40%); border-radius: var(--radius); margin-bottom: 1rem;">
+                帳號或密碼錯誤，請重新輸入。
+            </div>
+            <div th:if="${param.logout}" style="padding: 1rem; background: hsl(120, 80%, 95%); color: hsl(120, 70%, 30%); border-radius: var(--radius); margin-bottom: 1rem;">
+                您已成功登出。
+            </div>
+            <form th:action="@{/login}" method="post">
+                <div class="form-group">
+                    <label for="username">帳號</label>
+                    <input type="text" id="username" name="username" class="form-control" required autofocus>
+                </div>
+                <div class="form-group">
+                    <label for="password">密碼</label>
+                    <input type="password" id="password" name="password" class="form-control" required>
+                </div>
+                <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 1rem;">登入</button>
+            </form>
+        </div>
+    </div>
+</main>
+</html>

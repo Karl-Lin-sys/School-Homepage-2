@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html th:replace="~{layout/base :: html(content=~{::main}, title='新聞集錦')}">
+<main>
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
+        <h2>新聞集錦</h2>
+        <!-- Only admins can see this, for future CMS functionality -->
+        <a sec:authorize="hasRole('ADMIN')" th:href="@{/admin/news/create}" class="btn btn-primary">新增公告</a>
+    </div>
+
+    <div class="card" style="margin-bottom: 2rem;">
+        <div th:if="${#lists.isEmpty(newsList)}" style="padding: 2rem; text-align: center; color: var(--text-muted);">
+            目前沒有新聞公告。
+        </div>
+        <ul th:if="${not #lists.isEmpty(newsList)}" style="list-style: none;">
+            <li th:each="news, iterStat : ${newsList}" th:style="${!iterStat.last} ? 'border-bottom: 1px solid var(--border); padding-bottom: 1rem; margin-bottom: 1rem;' : 'padding-bottom: 1rem;'">
+                <div style="display: flex; align-items: baseline; gap: 1rem; margin-bottom: 0.5rem;">
+                    <span style="font-size: 0.9rem; color: var(--text-muted); min-width: 100px;" th:text="${#temporals.format(news.publishDate, 'yyyy-MM-dd')}">2026-08-14</span>
+                    <span style="display:inline-block; padding: 0.2rem 0.5rem; background: var(--bg-color); border-radius: 4px; font-size: 0.8rem; min-width: 80px; text-align:center;" th:text="${news.category}">分類</span>
+                    <a th:href="@{/news/{id}(id=${news.id})}" style="font-size: 1.1rem; color: var(--primary); text-decoration: none; font-weight: 500;" th:text="${news.title}">News Title</a>
+                </div>
+            </li>
+        </ul>
+    </div>
+</main>
+</html>

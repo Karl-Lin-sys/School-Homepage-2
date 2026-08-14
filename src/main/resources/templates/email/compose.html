@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html th:replace="~{layout/base :: html(content=~{::main}, title='撰寫新信件')}">
+<main>
+    <div style="display: flex; gap: 2rem;">
+        <aside style="width: 250px;">
+            <div class="card" style="padding: 1rem;">
+                <a th:href="@{/email/compose}" class="btn btn-primary" style="width: 100%; margin-bottom: 1.5rem;">撰寫新郵件</a>
+                <ul style="list-style: none; display: flex; flex-direction: column; gap: 0.5rem;">
+                    <li><a th:href="@{/email/inbox}" style="display: block; padding: 0.75rem 1rem; text-decoration: none; color: var(--text-main);">收件匣 (Inbox)</a></li>
+                </ul>
+            </div>
+        </aside>
+
+        <section style="flex: 1;">
+            <div class="card">
+                <h2 style="font-size: 1.5rem; margin-bottom: 1.5rem; padding-bottom: 1rem; border-bottom: 1px solid var(--border);">撰寫新信件</h2>
+
+                <form th:action="@{/email/send}" method="post">
+                    <div class="form-group">
+                        <label for="to">收件人 (To)</label>
+                        <input type="email" id="to" name="to" class="form-control" placeholder="example@cust.edu.tw" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="subject">主旨 (Subject)</label>
+                        <input type="text" id="subject" name="subject" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="body">內容 (Content)</label>
+                        <textarea id="body" name="body" class="form-control" rows="10" required></textarea>
+                    </div>
+                    <div style="display: flex; gap: 1rem; margin-top: 2rem;">
+                        <button type="submit" class="btn btn-primary">傳送信件</button>
+                        <a th:href="@{/email/inbox}" class="btn" style="border: 1px solid var(--border); background: var(--surface);">取消</a>
+                    </div>
+                </form>
+            </div>
+        </section>
+    </div>
+</main>
+</html>
